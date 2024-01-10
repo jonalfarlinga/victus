@@ -18,4 +18,12 @@ public abstract class Troop extends GameObject {
     public boolean getRanged() {
         return ranged;
     }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public BufferedImage getImg() {
+        return img;
+    }
 }

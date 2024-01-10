@@ -33,6 +33,7 @@ public class Game extends Canvas implements Runnable {
         this.addMouseMotionListener(input);
         this.addKeyListener(input);
         this.addMouseListener(input);
+        this.addMouseWheelListener(input);
         String localDir = System.getProperty("user.dir");
         File file = new File(localDir + "/img/background.png");
         try { // must handle the IOException just in case
