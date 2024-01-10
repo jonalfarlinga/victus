@@ -17,19 +17,20 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
 
-    private Handler handler;
+    private ObjectHandler handler;
     private Random r;
     private HUD hud;
     private BufferedImage background;
     protected boolean endTurn;
-    protected int MU;
+    public static int MU;
 
     public Game() {
+        MU = 20;
         endTurn = false;
-        handler = new Handler();
+        handler = new ObjectHandler();
         hud = new HUD();
         r = new Random();
-        InputHandler input = new InputHandler(handler);
+        InputListener input = new InputListener(handler);
         this.addMouseMotionListener(input);
         this.addKeyListener(input);
         this.addMouseListener(input);

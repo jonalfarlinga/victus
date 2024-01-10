@@ -8,10 +8,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseEvent;
 
-public class InputHandler extends KeyAdapter implements MouseListener, MouseWheelListener, MouseMotionListener {
-    private Handler handler;
+public class InputListener extends KeyAdapter implements MouseListener, MouseWheelListener, MouseMotionListener {
+    private ObjectHandler handler;
 
-    public InputHandler(Handler handler) {
+    public InputListener(ObjectHandler handler) {
         this.handler = handler;
     }
 
@@ -82,8 +82,8 @@ public class InputHandler extends KeyAdapter implements MouseListener, MouseWhee
         // TODO Auto-generated method stub
     }
 
+    @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseWheelMoved'");
     }
 }
