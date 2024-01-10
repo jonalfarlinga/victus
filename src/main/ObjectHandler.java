@@ -3,7 +3,7 @@ package src.main;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-public class Handler {
+public class ObjectHandler {
     LinkedList<GameObject> object = new LinkedList<GameObject>();
 
     public void tick() {
