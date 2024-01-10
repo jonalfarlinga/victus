@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import src.main.troops.BlankTroop;
+
 public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12*9;
@@ -18,7 +20,7 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
 
     private ObjectHandler handler;
-    private Random r;
+    //private Random r;
     private HUD hud;
     private BufferedImage background;
     protected boolean endTurn;
@@ -29,7 +31,7 @@ public class Game extends Canvas implements Runnable {
         endTurn = false;
         handler = new ObjectHandler();
         hud = new HUD();
-        r = new Random();
+        //r = new Random();
         InputListener input = new InputListener(handler);
         this.addMouseMotionListener(input);
         this.addKeyListener(input);
@@ -45,7 +47,7 @@ public class Game extends Canvas implements Runnable {
 
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
 
-        handler.addObject(new Player(r.nextInt(WIDTH-32), r.nextInt(HEIGHT-32), ID.Player1));
+        handler.addObject(new BlankTroop(200, 200, 30, MU * 4, ID.Player1));
     }
 
     public synchronized void start() {

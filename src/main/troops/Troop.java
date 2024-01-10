@@ -1,7 +1,6 @@
 package src.main.troops;
+import src.main.math.Point;
 
-import java.awt.Point;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import src.main.Game;
@@ -12,19 +11,24 @@ public abstract class Troop extends GameObject {
     private boolean ranged;
     private int depth;
     private BufferedImage img;
+    private int distance;
 
-    public Troop(int x, int y, int depth, boolean ranged, ID id) {
-        super(x, y, 2*Game.MU, depth, id);
+    public Troop(Point p, int depth, int distance, boolean ranged, ID id) {
+        super(p, 2*Game.MU, depth, id);
         this.ranged = ranged;
         this.depth = depth;
-        frontLeft = new Point(x-Game.MU,(int)y-depth/2);
-        frontRight = new Point(x+Game.MU,(int)y-depth/2);
-        backLeft = new Point(x-Game.MU,(int)y+depth/2);
-        backRight = new Point(x+Game.MU,(int)y+depth/2);
+        this.distance = distance;
+        frontLeft = new Point(p.x-Game.MU,(int)p.y-depth/2);
+        frontRight = new Point(p.x+Game.MU,(int)p.y-depth/2);
+        backLeft = new Point(p.x-Game.MU,(int)p.y+depth/2);
+        backRight = new Point(p.x+Game.MU,(int)p.y+depth/2);
     }
 
     public abstract void combatResults();
-    public abstract void move();
+
+    public int getDist() {
+        return distance;
+    }
 
     public boolean getRanged() {
         return ranged;
@@ -39,6 +43,10 @@ public abstract class Troop extends GameObject {
     }
 
     public Troop createShadow() {
-        return new ShadowTroop();
+        return new ShadowTroop(this.center, depth, distance, id, this);
+    }
+
+    public void rotate(int degrees) {
+
     }
 }

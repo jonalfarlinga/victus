@@ -1,17 +1,17 @@
 package src.main;
+import src.main.math.Point;
 
 import java.awt.Graphics;
-import java.awt.Point;
 
 public abstract class GameObject {
-    protected int x, y, height, width, angle;
+    protected int height, width, angle;
     protected Point frontLeft, frontRight, backLeft, backRight;
     protected ID id;
     protected boolean locked;
+    protected Point center;
 
-    public GameObject(int x, int y, int width, int height, ID id) {
-        this.x = x;
-        this.y = y;
+    public GameObject(Point p, int width, int height, ID id) {
+        this.center = p;
         this.id = id;
         this.height = height;
         this.width = width;
@@ -21,25 +21,30 @@ public abstract class GameObject {
 
     public abstract void tick();
     public abstract void render(Graphics g);
+    public abstract void rotate(int degrees);
 
     public void setX(int x) {
-        this.x = x;
+        center.setX(x);
     }
 
     public void setY(int y) {
-        this.y = y;
+        center.setY(y);
     }
 
     public int getX() {
-        return this.x;
+        return (int)center.getX();
     }
 
     public int getY() {
-        return this.y;
+        return (int)center.getY();
     }
 
     public ID getId() {
         return this.id;
+    }
+
+    public Point getCenter() {
+        return center;
     }
 
     public Point getFrontRight() {
@@ -58,11 +63,36 @@ public abstract class GameObject {
         return backRight;
     }
 
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int degrees) {
+        this.angle = degrees;
+    }
+
     public void transform(int degrees) {
 
     }
 
-    public void traverse(int x, int y) {
+    public void move(int x, int y) {
+        center.setX(x);
+        center.setY(y);
+    }
 
+    public void move(Point p) {
+        center = p;
+    }
+
+    public int clamp(int value, int max, int min) {
+
+        if (value < min) return min;
+        else if (value > max) return max;
+        else return value;
+    }
+
+    public boolean collidePoint(Point p) {
+        System.out.print("This Function Sucks src.main.GameObject.collidePoint");
+        return false;
     }
 }

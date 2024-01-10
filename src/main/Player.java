@@ -7,7 +7,7 @@ public class Player extends GameObject {
     // Debugging entity
 
     public Player(int x, int y, ID id) {
-        super(x, y, id);
+        super(x, y, 32, 32, id);
         height = 32;
         width = 32;
     }

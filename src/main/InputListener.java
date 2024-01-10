@@ -6,10 +6,14 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+
+import src.main.math.Point;
+
 import java.awt.event.MouseEvent;
 
 public class InputListener extends KeyAdapter implements MouseListener, MouseWheelListener, MouseMotionListener {
     private ObjectHandler handler;
+    private GameObject floatingObject;
 
     public InputListener(ObjectHandler handler) {
         this.handler = handler;
@@ -47,7 +51,7 @@ public class InputListener extends KeyAdapter implements MouseListener, MouseWhe
         int posX = e.getX();
         int posY = e.getY();
 
-        for (int i=0; i< handler.object.size(); i++) {
+        for (int i=0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
             tempObject.setX(posX);
             tempObject.setY(posY);
@@ -59,7 +63,9 @@ public class InputListener extends KeyAdapter implements MouseListener, MouseWhe
     }
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println("clicked");
+        Point p = new Point(e.getX(), e.getY());
+
+
     }
 
     @Override
