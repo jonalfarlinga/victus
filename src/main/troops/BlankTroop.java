@@ -3,6 +3,7 @@ package src.main.troops;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import src.main.Game;
 import src.main.ID;
 import src.main.math.Point;
 
@@ -19,24 +20,26 @@ public class BlankTroop extends Troop {
 
     @Override
     public void tick() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
+        frontLeft = new Point(center.x-Game.MU,(int)center.y-super.getDepth()/2);
+        frontRight = new Point(center.x+Game.MU,(int)center.y-super.getDepth()/2);
+        backLeft = new Point(center.x-Game.MU,(int)center.y+super.getDepth()/2);
+        backRight = new Point(center.x+Game.MU,(int)center.y+super.getDepth()/2);
     }
 
     public void render(Graphics g) {
         int[] xArray = {
             (int)frontLeft.getX(),
             (int)frontRight.getX(),
-            (int)backLeft.getX(),
-            (int)backRight.getX()
+            (int)backRight.getX(),
+            (int)backLeft.getX()
         };
         int[] yArray = {
             (int)frontLeft.getY(),
             (int)frontRight.getY(),
-            (int)backLeft.getY(),
-            (int)backRight.getY()
+            (int)backRight.getY(),
+            (int)backLeft.getY()
         };
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.BLACK);
         g.fillPolygon(xArray, yArray, 4);
     }
 }

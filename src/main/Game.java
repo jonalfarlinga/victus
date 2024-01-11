@@ -1,6 +1,6 @@
 package src.main;
 
-import java.util.Random;
+// import java.util.Random;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import java.awt.Color;
