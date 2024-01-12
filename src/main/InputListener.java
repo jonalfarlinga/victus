@@ -53,8 +53,9 @@ public class InputListener extends KeyAdapter implements MouseListener, MouseWhe
 
         for (int i=0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-            tempObject.setX(posX);
-            tempObject.setY(posY);
+            if (!tempObject.isLocked()) {
+                tempObject.move(posX, posY, 0);
+            }
         }
     }
 
@@ -63,19 +64,30 @@ public class InputListener extends KeyAdapter implements MouseListener, MouseWhe
     }
 
     public void mouseClicked(MouseEvent e) {
-        Point p = new Point(e.getX(), e.getY());
+        Point p = new Point(e.getPoint());
 
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+        Point p = new Point(e.getPoint());
+
+        for (int i=0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if (tempObject.collidePoint(p) && tempObject.getId() == ID.Player1) {
+                tempObject.setLocked(false);
+            }
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+
+        for (int i=0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            tempObject.setLocked(true);
+        }
     }
 
     @Override
@@ -90,6 +102,17 @@ public class InputListener extends KeyAdapter implements MouseListener, MouseWhe
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        // TODO Auto-generated method stub
+        int rotations = e.getWheelRotation();
+
+        for (int i=0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if (!tempObject.isLocked()) {
+                tempObject.move(
+                    tempObject.getX(),
+                    tempObject.getY(),
+                    Math.PI/16 * rotations
+                );
+            }
+        }
     }
 }

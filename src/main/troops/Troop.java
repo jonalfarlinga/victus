@@ -15,6 +15,7 @@ public abstract class Troop extends GameObject {
 
     public Troop(Point p, int depth, int distance, boolean ranged, ID id) {
         super(p, 2*Game.MU, depth, id);
+        System.out.println("initialized");
         this.ranged = ranged;
         this.depth = depth;
         this.distance = distance;
@@ -44,9 +45,5 @@ public abstract class Troop extends GameObject {
 
     public Troop createShadow() {
         return new ShadowTroop(this.center, depth, distance, id, this);
-    }
-
-    public void rotate(int degrees) {
-
     }
 }

@@ -20,10 +20,6 @@ public class BlankTroop extends Troop {
 
     @Override
     public void tick() {
-        frontLeft = new Point(center.x-Game.MU,(int)center.y-super.getDepth()/2);
-        frontRight = new Point(center.x+Game.MU,(int)center.y-super.getDepth()/2);
-        backLeft = new Point(center.x-Game.MU,(int)center.y+super.getDepth()/2);
-        backRight = new Point(center.x+Game.MU,(int)center.y+super.getDepth()/2);
     }
 
     public void render(Graphics g) {

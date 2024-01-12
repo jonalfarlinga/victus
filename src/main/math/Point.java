@@ -5,6 +5,10 @@ public class Point extends java.awt.Point {
         super((int)x, (int)y);
     }
 
+    public Point(java.awt.Point p) {
+        super(p);
+    }
+
     public double distance(Point p) {
         return Math.sqrt(
             (p.getX() - this.getX()) * (p.getX() - this.getX()) +

@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable {
         this.addMouseWheelListener(input);
         String localDir = System.getProperty("user.dir");
         File file = new File(localDir + "/img/background.png");
-        try { // must handle the IOException just in case
+        try {  // must handle the IOException just in case
             background = ImageIO.read(file);
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,12 +94,6 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.green);
         g.fillRect(32,32, (int)(32*17.5), (int)(32*11.5));
 
-        /* for (int x=0; x < WIDTH; x += 32) {
-            for (int y=0; y < HEIGHT; y += 32) {
-                g.drawRect(x, y, 32, 32);
-                g.drawString(x / 32 + ", " + y / 32, x + 4, y + 12);
-            }
-        } */
         handler.render(g);
         hud.render(g);
 

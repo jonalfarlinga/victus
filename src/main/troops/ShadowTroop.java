@@ -63,6 +63,7 @@ public class ShadowTroop extends Troop {
         }
     }
 
+    @Override
     public boolean collidePoint(Point p) {
         System.out.print("This function sucks src.main.troops.ShadowTroop.collidePoint");
         return true;
