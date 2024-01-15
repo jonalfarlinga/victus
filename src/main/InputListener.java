@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 
 public class InputListener extends KeyAdapter implements MouseListener, MouseWheelListener, MouseMotionListener {
     private ObjectHandler handler;
-    private GameObject floatingObject;
 
     public InputListener(ObjectHandler handler) {
         this.handler = handler;
@@ -54,6 +53,7 @@ public class InputListener extends KeyAdapter implements MouseListener, MouseWhe
         for (int i=0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
             if (!tempObject.isLocked()) {
+                System.out.println(tempObject);
                 tempObject.move(posX, posY, 0);
             }
         }

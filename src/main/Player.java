@@ -11,25 +11,22 @@ public class Player extends GameObject {
 
     public Player(int x, int y, ID id) {
         super(new Point(x, y), 32, 32, id);
-        height = 32;
-        width = 32;
     }
 
     public void tick() {
-        center.x = Game.clamp(center.x, 0, Game.WIDTH-48);
-        center.y = Game.clamp(center.y, 0, Game.HEIGHT-72);
+        setX(Game.clamp(getX(), 0, Game.WIDTH-48));
+        setY(Game.clamp(getY(), 0, Game.HEIGHT-72));
     }
 
     public void render(Graphics g) {
-        if (id == ID.Player1) g.setColor(Color.white);
-            g.fillRect(center.x - width / 2, center.y - height / 2, 32, 32);
+        if (getId() == ID.Player1) g.setColor(Color.white);
+            g.fillRect(getX() - getWidth() / 2, getY() - getDepth() / 2, 32, 32);
             g.setColor(Color.red);
-            g.fillRect(center.x, center.y, 8, 8);
+            g.fillRect(getX(), getY(), 8, 8);
     }
 
-    @Override
     public void rotate(int degrees) {
-        // TODO Auto-generated method stub
+        System.out.print("This function sucks. Don't call it");
         throw new UnsupportedOperationException("Unimplemented method 'rotate'");
     }
 }

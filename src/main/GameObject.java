@@ -4,20 +4,24 @@ import src.main.math.Point;
 import java.awt.Graphics;
 
 public abstract class GameObject {
-    protected int height, width;
-    protected double angle;
-    protected Point frontLeft, frontRight, backLeft, backRight;
-    protected ID id;
+    private int depth, width;
+    private double angle;
+    private Point frontLeft, frontRight, backLeft, backRight;
+    private ID id;
     protected boolean locked;
-    protected Point center;
+    private Point center;
 
-    public GameObject(Point p, int width, int height, ID id) {
+    public GameObject(Point p, int width, int depth, ID id) {
         this.center = p;
         this.id = id;
-        this.height = height;
+        this.depth = depth;
         this.width = width;
         angle = 0;
         locked = true;
+        frontLeft = new Point(p.x-Game.MU,(int)p.y-depth/2);
+        frontRight = new Point(p.x+Game.MU,(int)p.y-depth/2);
+        backLeft = new Point(p.x-Game.MU,(int)p.y+depth/2);
+        backRight = new Point(p.x+Game.MU,(int)p.y+depth/2);
     }
 
     public abstract void tick();
@@ -63,11 +67,15 @@ public abstract class GameObject {
     }
 
     public void setX(int x) {
-        center.setX(x);
+        if (!locked) {
+            center.setX(x);
+        }
     }
 
     public void setY(int y) {
-        center.setY(y);
+        if (!locked) {
+            center.setY(y);
+        }
     }
 
     public int getX() {
@@ -76,6 +84,14 @@ public abstract class GameObject {
 
     public int getY() {
         return (int)center.getY();
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getDepth() {
+        return depth;
     }
 
     public ID getId() {
@@ -111,22 +127,22 @@ public abstract class GameObject {
         this.rotate(0);
     }
 
-    public void transform(int degrees) {
-
-    }
-
     public void move(int x, int y, double radians) {
         center.setX(x);
         center.setY(y);
-        frontLeft = new Point(center.x-width/2,(int)center.y-height/2);
-        frontRight = new Point(center.x+width/2,(int)center.y-height/2);
-        backLeft = new Point(center.x-width/2,(int)center.y+height/2);
-        backRight = new Point(center.x+width/2,(int)center.y+height/2);
+        frontLeft = new Point(center.x-width/2,(int)center.y-depth/2);
+        frontRight = new Point(center.x+width/2,(int)center.y-depth/2);
+        backLeft = new Point(center.x-width/2,(int)center.y+depth/2);
+        backRight = new Point(center.x+width/2,(int)center.y+depth/2);
         this.rotate(radians);
     }
 
+    public void move(int x, int y) {
+        move(x, y, 0);
+    }
+
     public void move(Point p) {
-        center = p;
+        move(p.x, p.y, 0);
     }
 
     public int clamp(int value, int max, int min) {

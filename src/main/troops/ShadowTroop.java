@@ -3,7 +3,6 @@ import src.main.math.Point;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.stream.DoubleStream;
 
 import src.main.ID;
 
@@ -13,6 +12,11 @@ public class ShadowTroop extends Troop {
     public ShadowTroop(Point p, int depth, int distance, ID id, Troop parent) {
         super(p, depth, distance, false, id);
         this.parent = parent;
+        this.locked = false;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     public void combatResults() {
@@ -20,52 +24,46 @@ public class ShadowTroop extends Troop {
         throw new UnsupportedOperationException("Unimplemented method 'combatResults'");
     }
 
-    @Override
     public void tick() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
 
     public void render(Graphics g) {
         int[] xArray = {
-            (int)frontLeft.getX(),
-            (int)frontRight.getX(),
-            (int)backLeft.getX(),
-            (int)backRight.getX()
+            (int)getFrontLeft().getX(),
+            (int)getFrontRight().getX(),
+            (int)getBackRight().getX(),
+            (int)getBackLeft().getX()
         };
         int[] yArray = {
-            (int)frontLeft.getY(),
-            (int)frontRight.getY(),
-            (int)backLeft.getY(),
-            (int)backRight.getY()
+            (int)getFrontLeft().getY(),
+            (int)getFrontRight().getY(),
+            (int)getBackRight().getY(),
+            (int)getBackLeft().getY()
         };
         g.setColor(Color.LIGHT_GRAY);
-        g.fillOval(parent.getX(), parent.getY(), super.getDist(), super.getDist());
+        int dist = super.getDist();
+        g.fillOval(parent.getX() - dist, parent.getY() - dist, dist * 2, dist * 2);
+        parent.render(g);
         g.setColor(Color.RED);
         g.fillPolygon(xArray, yArray, 4);
     }
 
-    public void move(Point p) {
-
-        double maxDistance = DoubleStream.of(
-            parent.getCenter().distance(this.frontLeft),
-            parent.getCenter().distance(this.frontRight),
-            parent.getCenter().distance(this.backLeft),
-            parent.getCenter().distance(this.backRight)
-        ).max().getAsDouble();
-
-        double distance = this.getDist();
-        if (maxDistance > distance) {
-            double scaleFactor = distance / maxDistance;
-            this.center = Point.scaledVector(parent.getCenter(), p, scaleFactor);
-        } else {
-            this.center = p;
+    public void move(Point p, double radians) {
+        int distance = parent.getDist();
+        double thisDist = parent.getCenter().distance(p);
+        if (thisDist > distance) {
+            double uvX = (p.getX() - parent.getX()) / thisDist;
+            double uvY = (p.getY() - parent.getY()) / thisDist;
+            p = new Point(
+                (int) (uvX * distance) + parent.getX(),
+                (int) (uvY * distance) + parent.getY()
+            );
         }
+        super.move((int)p.getX(), (int)p.getY(), 0);
     }
 
-    @Override
-    public boolean collidePoint(Point p) {
-        System.out.print("This function sucks src.main.troops.ShadowTroop.collidePoint");
-        return true;
+    public void move(int x, int y, double radians) {
+        move(new Point(x, y), 0);
     }
 }

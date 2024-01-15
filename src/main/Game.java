@@ -46,8 +46,9 @@ public class Game extends Canvas implements Runnable {
         }
 
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
-
-        handler.addObject(new BlankTroop(200, 200, 30, MU * 4, ID.Player1));
+        BlankTroop troop = new BlankTroop(200, 200, 30, MU * 4, ID.Player1);
+        handler.addObject(troop);
+        //handler.addObject(troop.createShadow());
     }
 
     public synchronized void start() {
@@ -139,5 +140,13 @@ public class Game extends Canvas implements Runnable {
 
     public static void main (String[] args) {
         new Game();
+    }
+
+    public void addObject(GameObject go) {
+        handler.addObject(go);
+    }
+
+    public void killObject(GameObject go) {
+        handler.removeObject(go);
     }
 }
